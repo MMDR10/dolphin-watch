@@ -1,0 +1,32 @@
+name: 🐬 Dolphin Watch Auto-Update
+
+on:
+  schedule:
+    - cron: '30 3,9,15,21 * * *'
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run Dolphin auto-update
+        run: python3 dolphin_auto_update.py
+      - name: Commit & Push if changed
+        run: |
+          git config user.name "Dolphin-Watch Bot"
+          git config user.email "bot@dolphin-watch.local"
+          git add dashboard_data.json history.json
+          git diff --staged --quiet || (
+            git commit -m "🐬 Auto: $(date -u '+%Y-%m-%d %H:%M UTC')" &&
+            git push
+          )

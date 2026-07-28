@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐬 颱風 Dolphin 實時追蹤 | Noise Topography 驗證</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐬</text></svg>">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg: #060a14;
+  --card: #0d1326;
+  --card2: #111b33;
+  --border: #1a2844;
+  --text: #c8d6e5;
+  --dim: #5a6988;
+  --nt: #00d4ff;
+  --gold: #fbbf24;
+  --green: #34d399;
+  --red: #f87171;
+  --orange: #fb923c;
+  --cat5: #ff0040;
+  --cat4: #ff6600;
+  --cat3: #ffcc00;
+  --cat2: #ff9900;
+  --cat1: #ffff00;
+  --ts: #00ccff;
+}
+body{
+  font-family: -apple-system,'Segoe UI',sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 12px;
+}
+.dashboard{max-width: 720px; width: 100%;}
+
+/* ─── Hero ─── */
+.hero{
+  text-align: center;
+  padding: 28px 16px 12px;
+  position: relative;
+  background: linear-gradient(180deg, #0a1628 0%, var(--bg) 100%);
+  border-radius: 20px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+}
+.hero .storm-icon{font-size: 4rem; margin-bottom: 4px}
+.hero h1{font-size: 2rem; font-weight: 800; color: #fff}
+.hero .storm-id{font-size: .8rem; color: var(--dim); margin-top: 2px}
+
+/* Wind speed big display */
+.wind-hero{
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 8px;
+  margin: 12px 0 4px;
+}
+.wind-hero .kts{font-size: 4.5rem; font-weight: 900; color: #fff; line-height: 1}
+.wind-hero .unit{font-size: 1.1rem; color: var(--dim)}
+.wind-hero .kmh{font-size: 1.4rem; color: var(--dim); margin-left: 4px}
+
+.cat-badge{
+  display: inline-block;
+  padding: 5px 18px;
+  border-radius: 20px;
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  margin-top: 6px;
+}
+.cat-5{background: #7f1d1d; color: #fca5a5}
+.cat-4{background: #78350f; color: #fdba74}
+.cat-3{background: #713f12; color: #fde047}
+.cat-2{background: #78350f; color: #fdba74}
+.cat-1{background: #713f12; color: #fde047}
+.cat-ts{background: #0c4a6e; color: #67e8f9}
+.cat-td{background: #374151; color: #9ca3af}
+
+.hero-stats{
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.hero-stat{
+  text-align: center;
+  min-width: 70px;
+}
+.hero-stat .val{font-size: 1.1rem; font-weight: 700; color: #e0e7ff}
+.hero-stat .lbl{font-size: .65rem; color: var(--dim); text-transform: uppercase; letter-spacing: .06em}
+
+/* ─── Cards ─── */
+.card{
+  background: var(--card);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+}
+.card h3{
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--dim);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.card h3 .emoji{font-size: 1rem}
+
+/* ─── NT Verification Panel ─── */
+.nt-panel{}
+.nt-status-bar{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+}
+.nt-verified{background: #064e3b; border: 1px solid #047857}
+.nt-partial{background: #78350f; border: 1px solid #b45309}
+.nt-pending{background: #1e3a5f; border: 1px solid #1e40af}
+
+.nt-icon{font-size: 2.2rem}
+.nt-text .nt-title{font-size: 1.1rem; font-weight: 700}
+.nt-text .nt-sub{font-size: .75rem; color: #9ca3af; margin-top: 2px}
+
+.nt-metrics{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.nt-metric{
+  background: var(--card2);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+}
+.nt-metric .lbl{font-size: .66rem; color: var(--dim); text-transform: uppercase; letter-spacing: .06em}
+.nt-metric .val{font-size: 1.3rem; font-weight: 700; margin-top: 3px}
+.nt-metric .diff{font-size: .7rem; margin-top: 2px}
+
+.nt-three-layer{
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.nt-layer{
+  flex: 1;
+  padding: 10px 6px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: .64rem;
+  font-weight: 600;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+.nt-layer.active-Z1{background: #7f1d1d; color: #fca5a5; border: 1px solid #b91c1c}
+.nt-layer.active-Z2{background: #78350f; color: #fdba74; border: 1px solid #c2410c}
+.nt-layer.active-Z3{background: #1e3a5f; color: #93c5fd; border: 1px solid #1d4ed8}
+
+/* ─── Forecast Timeline ─── */
+.timeline{}
+.timeline-track{position: relative; padding-left: 32px}
+.timeline-track::before{
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+.tl-item{
+  position: relative;
+  padding: 10px 0 10px 16px;
+  border-bottom: 1px solid #0f1a2e;
+}
+.tl-item:last-child{border-bottom: none}
+.tl-item::before{
+  content: '';
+  position: absolute;
+  left: -23px;
+  top: 16px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  border: 2px solid var(--card);
+}
+.tl-item.now::before{background: var(--nt); box-shadow: 0 0 8px var(--nt)}
+.tl-item.peak::before{background: var(--cat5); box-shadow: 0 0 8px var(--cat5)}
+
+.tl-header{display: flex; justify-content: space-between; align-items: center}
+.tl-time{font-size: .7rem; color: var(--dim); font-family: monospace}
+.tl-wind{font-size: 1.1rem; font-weight: 700}
+.tl-pos{font-size: .68rem; color: var(--dim); margin-top: 2px}
+.tl-bar-wrap{flex: 1; margin: 0 12px; height: 4px; background: #1a2844; border-radius: 2px; overflow: hidden}
+.tl-bar{height: 100%; border-radius: 2px; transition: width .4s}
+.tl-bar.now{background: var(--nt)}
+.tl-bar.future{background: #3b82f6}
+
+/* ─── Wind bar chart ─── */
+.wind-bars{display: flex; gap: 3px; align-items: flex-end; height: 120px; margin: 16px 0 8px}
+.wind-bar-wrap{flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%}
+.wind-bar{width: 100%; max-width: 20px; border-radius: 4px 4px 0 0; transition: height .5s; position: relative}
+.wind-bar-ts{background: linear-gradient(180deg, #22d3ee, #0891b2)}
+.wind-bar-cat1{background: linear-gradient(180deg, #fde047, #ca8a04)}
+.wind-bar-cat3{background: linear-gradient(180deg, #fb923c, #c2410c)}
+.wind-bar-cat4{background: linear-gradient(180deg, #f87171, #dc2626)}
+.wind-bar-cat5{background: linear-gradient(180deg, #ff0040, #991b1b)}
+.wind-bar-now{box-shadow: 0 0 10px rgba(0,212,255,0.4)}
+.wind-val{font-size: .6rem; color: var(--dim); margin-top: 4px; text-align: center}
+.wind-time{font-size: .55rem; color: var(--dim); margin-top: 2px; text-align: center}
+.cat5-line{position: absolute; width: 100%; border-top: 1px dashed #ff0040; z-index: 1}
+.cat5-label{position: absolute; font-size: .5rem; color: #ff0040; transform: translateY(-14px); white-space: nowrap}
+
+/* ─── History ─── */
+.hist-table{width: 100%; font-size: .72rem; border-collapse: collapse}
+.hist-table th{color: var(--dim); font-weight: 500; text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: .05em}
+.hist-table td{padding: 6px 8px; border-bottom: 1px solid #0f1a2e; font-family: monospace; font-size: .68rem}
+.hist-table tr:last-child td{border-bottom: none}
+
+/* ─── Footer ─── */
+.footer{text-align: center; padding: 16px; font-size: .65rem; color: var(--dim)}
+.footer a{color: var(--nt); text-decoration: none}
+
+.flash{animation: flash .8s ease-in-out 3}
+@keyframes flash{50%{opacity: .4}}
+
+@media(max-width:480px){
+  .wind-hero .kts{font-size: 3.2rem}
+  .nt-metrics{grid-template-columns: 1fr}
+  .hero-stats{gap: 12px}
+}
+</style>
+</head>
+<body>
+<div class="dashboard">
+  <!-- ═══ HERO ═══ -->
+  <div class="hero">
+    <div class="storm-icon">🐬</div>
+    <h1 id="stormName">DOLPHIN</h1>
+    <div class="storm-id" id="stormId"></div>
+    <div class="wind-hero">
+      <span class="kts" id="windKts">—</span>
+      <span class="unit">kts</span>
+      <span class="kmh" id="windKmh"></span>
+    </div>
+    <div id="catBadge"></div>
+    <div class="hero-stats" id="heroStats"></div>
+  </div>
+
+  <!-- ═══ NOISE TOPOGRAPHY VERIFICATION ═══ -->
+  <div class="card nt-panel">
+    <h3><span class="emoji">🔬</span> Noise Topography 驗證</h3>
+    <div id="ntStatusBar" class="nt-status-bar nt-pending">
+      <div class="nt-icon" id="ntIcon">⏳</div>
+      <div class="nt-text">
+        <div class="nt-title" id="ntTitle">載入中...</div>
+        <div class="nt-sub" id="ntSub"></div>
+      </div>
+    </div>
+    <div class="nt-metrics" id="ntMetrics"></div>
+    <div class="nt-three-layer" id="ntLayers"></div>
+  </div>
+
+  <!-- ═══ FORECAST INTENSITY BAR CHART ═══ -->
+  <div class="card">
+    <h3><span class="emoji">📈</span> 強度預測走勢</h3>
+    <div class="wind-bars" id="windBars"></div>
+    <div class="cat5-line" style="top:0"><span class="cat5-label">— Cat 5 threshold (137 kts)</span></div>
+    <div style="text-align:center;font-size:.62rem;color:var(--dim);margin-top:4px">紅色 = 超級颱風 · 橙色 = 颱風 · 藍 = 熱帶風暴</div>
+  </div>
+
+  <!-- ═══ FORECAST TIMELINE ═══ -->
+  <div class="card">
+    <h3><span class="emoji">🕐</span> JTWC 預測路徑</h3>
+    <div class="timeline">
+      <div class="timeline-track" id="timeline"></div>
+    </div>
+  </div>
+
+  <!-- ═══ HISTORY ═══ -->
+  <div class="card">
+    <h3><span class="emoji">📋</span> Advisory 記錄</h3>
+    <div style="overflow-x:auto">
+      <table class="hist-table">
+        <thead><tr><th>#</th><th>時間</th><th>風速</th><th>級別</th><th>位置</th><th>NT</th></tr></thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </div>
+    <div style="text-align:center;font-size:.62rem;color:var(--dim);margin-top:8px" id="historyFooter"></div>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <div class="footer">
+    🐬 Dolphin Watch · Noise Topography 實時驗證 · 
+    <span id="updateTime"></span> · 
+    <a href="https://github.com/MMDR10/dolphin-watch" target="_blank">GitHub</a>
+  </div>
+</div>
+
+<script>
+// ─── Load data ───
+fetch('dashboard_data.json')
+  .then(r => r.json())
+  .then(render)
+  .catch(e => {
+    document.getElementById('ntTitle').textContent = '無法載入數據';
+    document.getElementById('ntSub').textContent = e.message;
+  });
+
+function catClass(cat) {
+  if (!cat) return 'cat-td';
+  if (cat.includes('Cat 5') || cat.includes('Super')) return 'cat-5';
+  if (cat.includes('Cat 4')) return 'cat-4';
+  if (cat.includes('Cat 3')) return 'cat-3';
+  if (cat.includes('Cat 2')) return 'cat-2';
+  if (cat.includes('Cat 1')) return 'cat-1';
+  if (cat.includes('Tropical Storm')) return 'cat-ts';
+  return 'cat-td';
+}
+
+function render(d) {
+  const c = d.current;
+  const n = d.noise_topography;
+  const p = d.noise_topography.prediction;
+
+  // ─── Hero ───
+  document.getElementById('stormName').textContent = c.storm_name;
+  document.getElementById('stormId').textContent = `${c.storm_id} · Warning NR ${c.warning_nr} · ${c.issued_time || ''}`;
+  document.getElementById('windKts').textContent = c.max_wind_kts;
+  document.getElementById('windKmh').textContent = `${c.max_wind_kmh} km/h`;
+  document.getElementById('catBadge').innerHTML = `<span class="cat-badge ${catClass(c.category)}">${c.category}</span>`;
+
+  document.getElementById('heroStats').innerHTML = `
+    <div class="hero-stat"><div class="val">${c.min_pressure_mb || '—'}</div><div class="lbl">中心氣壓 mb</div></div>
+    <div class="hero-stat"><div class="val">${c.position.lat}°N ${c.position.lon}°E</div><div class="lbl">位置</div></div>
+    <div class="hero-stat"><div class="val">${c.movement_direction}° / ${c.movement_speed_kts} kts</div><div class="lbl">移動</div></div>
+    <div class="hero-stat"><div class="val">${c.max_wave_height_ft || '—'}</div><div class="lbl">浪高 ft</div></div>
+  `;
+
+  // ─── NT Verification ───
+  const ntBar = document.getElementById('ntStatusBar');
+  ntBar.className = 'nt-status-bar';
+  if (n.status.includes('✅')) {
+    ntBar.classList.add('nt-verified');
+    document.getElementById('ntIcon').textContent = '✅';
+  } else if (n.status.includes('🟡')) {
+    ntBar.classList.add('nt-partial');
+    document.getElementById('ntIcon').textContent = '🟡';
+  } else {
+    ntBar.classList.add('nt-pending');
+    document.getElementById('ntIcon').textContent = '⏳';
+  }
+  document.getElementById('ntTitle').textContent = n.status;
+  document.getElementById('ntSub').textContent = n.remarks.join(' · ');
+
+  // Peak intensity comparison
+  const pi = n.verification.peak_intensity;
+  const ri = n.verification['0lag_ri'];
+  document.getElementById('ntMetrics').innerHTML = `
+    <div class="nt-metric">
+      <div class="lbl">NT 預測巔峰</div>
+      <div class="val" style="color:var(--nt)">≥${p.peak_intensity_kmh} km/h</div>
+      <div class="diff">${p.forecast_date} · ${p.confidence} confidence</div>
+    </div>
+    <div class="nt-metric">
+      <div class="lbl">JTWC 預測巔峰</div>
+      <div class="val" style="color:${pi.difference_kmh <= 10 ? 'var(--green)' : 'var(--gold)'}">${pi.jtwc_forecast_kmh} km/h</div>
+      <div class="diff">${pi.jtwc_forecast_kts} kts · Δ=${pi.difference_kmh} km/h (${pi.difference_pct}%)</div>
+    </div>
+    <div class="nt-metric" style="grid-column:1/-1">
+      <div class="lbl">${pi.remark}</div>
+    </div>
+  `;
+
+  // 3-Layer status
+  document.getElementById('ntLayers').innerHTML = `
+    <div class="nt-layer active-Z1">Z1 阻尼<br>${p.z1_damping_zone}</div>
+    <div class="nt-layer active-Z2">Z2 蛇形<br>${p.z2_snake_lock}</div>
+    <div class="nt-layer active-Z3">Z3 脆性<br>${p.z3_brittle}</div>
+  `;
+
+  // ─── Wind intensity bars ───
+  const cat5Kts = 137;
+  const maxHeight = 100;
+  let barsHtml = '';
+  // Current
+  barsHtml += `
+    <div class="wind-bar-wrap">
+      <div class="wind-bar wind-bar-now ${catClass(c.category)}" style="height:${Math.min(c.max_wind_kts/cat5Kts*maxHeight, maxHeight)}px"></div>
+      <div class="wind-val" style="font-weight:700;color:#e0e7ff">${c.max_wind_kts} kts</div>
+      <div class="wind-time">NOW</div>
+    </div>`;
+
+  const barColors = (kts) => {
+    if (kts >= 137) return 'wind-bar-cat5';
+    if (kts >= 113) return 'wind-bar-cat4';
+    if (kts >= 96) return 'wind-bar-cat3';
+    if (kts >= 64) return 'wind-bar-cat1';
+    return 'wind-bar-ts';
+  };
+
+  d.forecast.forEach(f => {
+    barsHtml += `
+      <div class="wind-bar-wrap">
+        <div class="wind-bar ${barColors(f.wind_kts)}" style="height:${Math.min(f.wind_kts/cat5Kts*maxHeight, maxHeight)}px"></div>
+        <div class="wind-val">${f.wind_kts}</div>
+        <div class="wind-time">+${f.hours}h</div>
+      </div>`;
+  });
+
+  document.getElementById('windBars').innerHTML = barsHtml;
+
+  // ─── Timeline ───
+  let tlHtml = '';
+  // Current position
+  tlHtml += `
+    <div class="tl-item now">
+      <div class="tl-header">
+        <span class="tl-time">NOW · ${c.issued_time || ''}</span>
+        <span class="tl-wind">${c.max_wind_kts} kts</span>
+      </div>
+      <div class="tl-pos">📍 ${c.position.lat}°N ${c.position.lon}°E · ${c.category}</div>
+    </div>`;
+
+  d.forecast.forEach(f => {
+    const isPeak = f.wind_kts === d.peak_forecast.kts;
+    tlHtml += `
+      <div class="tl-item${isPeak ? ' peak' : ''}">
+        <div class="tl-header">
+          <span class="tl-time">+${f.hours}h · ${f.valid_time}Z</span>
+          <span class="tl-wind" style="color:${isPeak ? 'var(--cat5)' : 'var(--text)'}">${f.wind_kts} kts</span>
+        </div>
+        <div class="tl-pos">📍 ${f.position.lat}°N ${f.position.lon}°E · ${getCat(f.wind_kts)}</div>
+      </div>`;
+  });
+
+  document.getElementById('timeline').innerHTML = tlHtml;
+
+  // ─── History ───
+  let histHtml = '';
+  const hist = d.history || [];
+  hist.slice().reverse().forEach(h => {
+    histHtml += `<tr>
+      <td>#${h.warning_nr}</td>
+      <td>${h.timestamp}</td>
+      <td style="font-weight:700">${h.max_wind_kts} kts</td>
+      <td><span class="cat-badge ${catClass(h.category)}" style="font-size:.6rem;padding:2px 8px">${h.category}</span></td>
+      <td>${h.position.lat}°N ${h.position.lon}°E</td>
+      <td>${h.nt_status || '—'}</td>
+    </tr>`;
+  });
+  document.getElementById('historyBody').innerHTML = histHtml || '<tr><td colspan="6" style="text-align:center;color:var(--dim)">尚無記錄</td></tr>';
+  document.getElementById('historyFooter').textContent = `共 ${hist.length} 個 advisory`;
+
+  document.getElementById('updateTime').textContent = `更新: ${d.generated}`;
+}
+
+function getCat(kts) {
+  if (kts >= 137) return 'Super Typhoon (Cat 5)';
+  if (kts >= 113) return 'Typhoon (Cat 4)';
+  if (kts >= 96) return 'Typhoon (Cat 3)';
+  if (kts >= 83) return 'Typhoon (Cat 2)';
+  if (kts >= 64) return 'Typhoon (Cat 1)';
+  if (kts >= 34) return 'Tropical Storm';
+  return 'Tropical Depression';
+}
+</script>
+</body>
+</html>

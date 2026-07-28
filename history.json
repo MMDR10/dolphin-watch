@@ -1,0 +1,24 @@
+{
+  "advisories": [
+    {
+      "timestamp": "2026-07-28 09:54 UTC",
+      "warning_nr": 6,
+      "position": {
+        "lat": 13.3,
+        "lon": 171.7
+      },
+      "max_wind_kts": 75,
+      "category": "Typhoon (Cat 1)",
+      "movement": {
+        "direction": 280,
+        "speed_kts": 11
+      },
+      "min_pressure_mb": 980,
+      "peak_forecast_kts": 150,
+      "peak_forecast_time": "281800",
+      "nt_status": "✅ NT verified"
+    }
+  ],
+  "storm_name": "DOLPHIN",
+  "storm_id": "12W"
+}

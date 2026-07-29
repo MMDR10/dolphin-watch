@@ -25,7 +25,7 @@ jobs:
         run: |
           git config user.name "Dolphin-Watch Bot"
           git config user.email "bot@dolphin-watch.local"
-          git add dashboard_data.json history.json
+          git add dashboard_data.json history.json dhcurl_result.json
           git diff --staged --quiet || (
             git commit -m "🐬 Auto: $(date -u '+%Y-%m-%d %H:%M UTC')" &&
             git push

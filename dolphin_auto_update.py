@@ -234,6 +234,45 @@ def get_category(kts):
     if kts >= 34: return "Tropical Storm"
     return "Tropical Depression"
 
+# ─── dH_curl Integration ───
+def load_dhcurl():
+    """Load dhcurl_result.json if present (from CDS pipeline)."""
+    path = "dhcurl_result.json"
+    if os.path.exists(path):
+        with open(path) as f:
+            return json.load(f)
+    return None
+
+def format_dhcurl_for_display(dh):
+    """Format dH_curl result for dashboard_data.json embedding."""
+    if not dh:
+        return None
+    dhv = dh["dh_curl"]
+    if dhv < -0.3:
+        emoji, status = "🔴", "Deep Monotonic (Mature TC)"
+    elif dhv < -0.1:
+        emoji, status = "🟠", "Organising (Strengthening)"
+    elif dhv > 0.3:
+        emoji, status = "🟢", "W-shape (Genesis)"
+    else:
+        emoji, status = "⚪", "Neutral"
+    return {
+        "dh_curl": dhv,
+        "H_core": dh["H_core"],
+        "H_shell": dh["H_shell"],
+        "core_n": dh["core_n"],
+        "shell_n": dh["shell_n"],
+        "center_lat": dh["center_lat"],
+        "center_lon": dh["center_lon"],
+        "timestamp": dh["timestamp"],
+        "data_source": dh.get("data_source", "ERA5_CDS"),
+        "storm": dh.get("storm", "DOLPHIN"),
+        "date": dh.get("date", dh["timestamp"][:8]),
+        "hour": dh.get("hour", dh["timestamp"][8:10]),
+        "status": status,
+        "emoji": emoji,
+    }
+
 # ─── Load/Save History ───
 def load_history():
     if os.path.exists(HISTORY_JSON):
@@ -321,6 +360,13 @@ def main():
     )
     peak_forecast_kmh = round(peak_forecast * 1.852)
     
+    # Load dH_curl result if available
+    dhcurl_raw = load_dhcurl()
+    dhcurl_display = format_dhcurl_for_display(dhcurl_raw)
+    if dhcurl_display:
+        print(f"  📊 dH_curl: {dhcurl_display['dh_curl']:.6e} ({dhcurl_display['status']})")
+        print(f"    Centre: {dhcurl_display['center_lat']:.2f}°N {dhcurl_display['center_lon']:.2f}°E")
+    
     data = {
         "generated": now.strftime("%Y-%m-%d %H:%M UTC"),
         "source": f"JTWC via cyclocane (WTPN31)",
@@ -348,6 +394,7 @@ def main():
             "category": get_category(peak_forecast),
         },
         "noise_topography": nt_result,
+        "dhcurl_tracking": dhcurl_display,
         "history": history["advisories"],
         "summary": {
             "current_speed": f"{advisory['max_wind_kts']} kts ({round(advisory['max_wind_kts']*1.852)} km/h)",
@@ -355,6 +402,7 @@ def main():
             "nt_vs_jtwc": f"NT≥280 km/h → JTWC max={peak_forecast_kmh} km/h" if peak_forecast_kmh else "",
             "movement": f"{advisory['movement']['direction']}° at {advisory['movement']['speed_kts']} kts",
             "advisory_count": len(history["advisories"]),
+            "dhcurl": f"{dhcurl_display['dh_curl']:.4e} s⁻¹ ({dhcurl_display['status']})" if dhcurl_display else "pending",
         },
     }
     

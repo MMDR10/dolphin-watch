@@ -1,0 +1,74 @@
+name: 🐬 dH_curl Track (ERA5 CDS)
+
+on:
+  schedule:
+    - cron: '40 3,9,15,21 * * *'   # 每 6h 跟 advisory 同步
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Date YYYYMMDD'
+        required: false
+        default: ''
+      hour:
+        description: 'Hour 00/06/12/18'
+        required: false
+        default: ''
+      lat:
+        description: 'Center latitude'
+        required: false
+        default: '14.5'
+      lon:
+        description: 'Center longitude'
+        required: false
+        default: '168.0'
+
+jobs:
+  dhcurl:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install cdsapi xarray netCDF4 numpy
+
+      - name: Run dH_curl computation
+        id: dhcurl
+        env:
+          CDSAPI_KEY: ${{ secrets.CDSAPI_KEY }}
+        run: |
+          EXTRA=""
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            EXTRA="--date ${{ github.event.inputs.date }} --hour ${{ github.event.inputs.hour }} --lat ${{ github.event.inputs.lat }} --lon ${{ github.event.inputs.lon }}"
+          else
+            EXTRA="--auto"
+          fi
+          python cds_dhcurl.py $EXTRA --output dhcurl_result.json
+          echo "dhcurl_json=$(cat dhcurl_result.json)" >> $GITHUB_OUTPUT
+
+      - name: Print result
+        run: |
+          python -c "
+          import json
+          d=json.load(open('dhcurl_result.json'))
+          print(f'dH_curl: {d[\"dh_curl\"]:.6e} s⁻¹')
+          print(f'Centre: {d[\"center_lat\"]:.2f}°N {d[\"center_lon\"]:.2f}°E')
+          print(f'Mode: {d[\"mode\"]}')
+          "
+
+      - name: Commit dH_curl result
+        run: |
+          git config user.name "Dolphin-Watch Bot"
+          git config user.email "bot@dolphin-watch.local"
+          git add dhcurl_result.json
+          git diff --staged --quiet || (
+            git commit -m "🐬 dH_curl: auto-track from CDS ERA5" &&
+            git push
+          )

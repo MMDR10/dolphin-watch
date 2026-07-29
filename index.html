@@ -272,6 +272,27 @@ body{
     <div class="nt-three-layer" id="ntLayers"></div>
   </div>
 
+  <!-- ═══ dH_CURL TRACKING ═══ -->
+  <div class="card" id="dhcurlCard" style="display:none">
+    <h3><span class="emoji">🌀</span> dH_curl 渦旋深度追蹤</h3>
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <div style="font-size:2.5rem;font-weight:900;font-family:monospace" id="dhcurlValue">—</div>
+      <div>
+        <div style="font-size:.9rem;font-weight:600" id="dhcurlStatus">—</div>
+        <div style="font-size:.7rem;color:var(--dim)" id="dhcurlInfo">—</div>
+        <div style="font-size:.68rem;color:var(--dim);margin-top:4px">
+          <span id="dhcurlCore">—</span> ·
+          <span id="dhcurlShell">—</span> ·
+          <span id="dhcurlCenter">—</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:12px;font-size:.65rem;color:var(--dim);display:flex;gap:12px;flex-wrap:wrap">
+      <span id="dhcurlSource">—</span>
+      <span id="dhcurlTime">—</span>
+    </div>
+  </div>
+
   <!-- ═══ FORECAST INTENSITY BAR CHART ═══ -->
   <div class="card">
     <h3><span class="emoji">📈</span> 強度預測走勢</h3>
@@ -389,6 +410,23 @@ function render(d) {
     <div class="nt-layer active-Z2">Z2 蛇形<br>${p.z2_snake_lock}</div>
     <div class="nt-layer active-Z3">Z3 脆性<br>${p.z3_brittle}</div>
   `;
+
+  // ─── dH_curl ───
+  const dh = d.dhcurl_tracking;
+  if (dh) {
+    document.getElementById('dhcurlCard').style.display = 'block';
+    const val = document.getElementById('dhcurlValue');
+    const v = dh.dh_curl;
+    val.textContent = v < 0 ? `${v.toExponential(4)}` : `+${v.toExponential(4)}`;
+    val.style.color = v < -0.3 ? 'var(--red)' : v < -0.1 ? 'var(--orange)' : v > 0.3 ? 'var(--green)' : 'var(--gold)';
+    document.getElementById('dhcurlStatus').textContent = (dh.emoji || '🌀') + ' ' + dh.status;
+    document.getElementById('dhcurlInfo').textContent = dh.data_source + ' · ' + dh.center_lat + '°N ' + dh.center_lon + '°E';
+    document.getElementById('dhcurlCore').textContent = `Core ζ=${(dh.H_core*1e5).toFixed(2)}e-5 (n=${dh.core_n})`;
+    document.getElementById('dhcurlShell').textContent = `Shell ζ=${(dh.H_shell*1e5).toFixed(2)}e-5 (n=${dh.shell_n})`;
+    document.getElementById('dhcurlCenter').textContent = `Centre ${dh.center_lat}°N ${dh.center_lon}°E`;
+    document.getElementById('dhcurlSource').textContent = '📡 ' + dh.data_source;
+    document.getElementById('dhcurlTime').textContent = '🕐 ' + dh.date + ' ' + dh.hour + 'z';
+  }
 
   // ─── Wind intensity bars ───
   const cat5Kts = 137;

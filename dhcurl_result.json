@@ -1,0 +1,17 @@
+{
+  "dh_curl": -9.514062867310713e-06,
+  "H_core": 1.2189560948172584e-05,
+  "H_shell": 2.675498080861871e-06,
+  "core_n": 1309,
+  "shell_n": 3948,
+  "center_lat": 16.5,
+  "center_lon": 166.5,
+  "core_deg": 5.0,
+  "shell_deg": 10.0,
+  "mode": "Neutral/Transition",
+  "timestamp": "202607241200",
+  "data_source": "ERA5_CDS",
+  "storm": "DOLPHIN",
+  "date": "20260724",
+  "hour": "12"
+}

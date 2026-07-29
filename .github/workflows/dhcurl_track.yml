@@ -51,7 +51,6 @@ jobs:
             EXTRA="--era5-latest"
           fi
           python cds_dhcurl.py $EXTRA --output dhcurl_result.json
-          echo "dhcurl_json=$(cat dhcurl_result.json)" >> $GITHUB_OUTPUT
 
       - name: Print result
         run: |

@@ -14,12 +14,13 @@ Usage:
 """
 
 import json, os, sys, time, argparse
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import numpy as np
 
 CORE_DEG = 5.0
 SHELL_DEG = 10.0   # MKP 新協議 5/10
 DOMAIN_HALF_DEG = 12.0
+ERA5_LATENCY_DAYS = 5   # ERA5 reanalysis 約 5-7 日延遲
 
 
 def fetch_cds_era5(clat, clon, date_str, hour_str):
@@ -158,9 +159,17 @@ def main():
     ap.add_argument("--storm", default="DOLPHIN", help="Storm name")
     ap.add_argument("--output", default="dhcurl_result.json", help="Output JSON")
     ap.add_argument("--auto", action="store_true", help="Use latest synoptic time")
+    ap.add_argument("--era5-latest", action="store_true",
+                    help="Use LATEST AVAILABLE ERA5 date (now - {}d latency)".format(ERA5_LATENCY_DAYS))
     args = ap.parse_args()
 
-    if args.auto or not (args.date and args.hour):
+    if args.era5_latest:
+        # ERA5 has ~5d latency → query latest available
+        latest = datetime.now(timezone.utc) - timedelta(days=ERA5_LATENCY_DAYS)
+        args.date = latest.strftime("%Y%m%d")
+        args.hour = f"{(latest.hour // 6) * 6:02d}"
+        print(f"  ⚠️  ERA5 latency ~{ERA5_LATENCY_DAYS}d → using {args.date} {args.hour}z")
+    elif args.auto or not (args.date and args.hour):
         now = datetime.now(timezone.utc)
         args.date = now.strftime("%Y%m%d")
         args.hour = f"{(now.hour // 6) * 6:02d}"

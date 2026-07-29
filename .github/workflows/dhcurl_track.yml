@@ -48,7 +48,7 @@ jobs:
           if [ -n "${{ github.event.inputs.date }}" ]; then
             EXTRA="--date ${{ github.event.inputs.date }} --hour ${{ github.event.inputs.hour }} --lat ${{ github.event.inputs.lat }} --lon ${{ github.event.inputs.lon }}"
           else
-            EXTRA="--auto"
+            EXTRA="--era5-latest"
           fi
           python cds_dhcurl.py $EXTRA --output dhcurl_result.json
           echo "dhcurl_json=$(cat dhcurl_result.json)" >> $GITHUB_OUTPUT

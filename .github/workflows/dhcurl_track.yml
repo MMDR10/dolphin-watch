@@ -66,7 +66,7 @@ jobs:
         run: |
           git config user.name "Dolphin-Watch Bot"
           git config user.email "bot@dolphin-watch.local"
-          git add dhcurl_result.json
+          git add dhcurl_result.json dhcurl_history.json
           git diff --staged --quiet || (
             git commit -m "🐬 dH_curl: auto-track from CDS ERA5" &&
             git push

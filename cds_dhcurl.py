@@ -222,6 +222,33 @@ def main():
         json.dump(result, f, indent=2)
     print(f"💾  Saved {args.output}")
 
+    # ── Historical accumulation ────────────────────────────
+    history_path = "dhcurl_history.json"
+    entry = {k: result[k] for k in
+             ["dh_curl", "H_core", "H_shell", "center_lat", "center_lon",
+              "core_n", "shell_n", "timestamp", "storm", "mode"]}
+    entry["core_deg"] = CORE_DEG
+    entry["shell_deg"] = SHELL_DEG
+    history = {"storm": args.storm, "records": []}
+    if os.path.exists(history_path):
+        try:
+            with open(history_path) as f:
+                existing = json.load(f)
+            if isinstance(existing.get("records"), list):
+                history["records"] = existing["records"]
+        except (json.JSONDecodeError, KeyError):
+            pass
+    # Avoid exact duplicates (same timestamp)
+    if not any(r.get("timestamp") == entry["timestamp"] for r in history["records"]):
+        history["records"].append(entry)
+        history["records"].sort(key=lambda r: r.get("timestamp", ""))
+        with open(history_path, "w") as f:
+            json.dump(history, f, indent=2)
+        print(f"📜  History now {len(history['records'])} records → {history_path}")
+    else:
+        print(f"⏭️  Timestamp {entry['timestamp']} already in history, skipped")
+    # ── End historical accumulation ────────────────────────
+
 
 if __name__ == "__main__":
     main()

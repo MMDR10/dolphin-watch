@@ -153,9 +153,9 @@
     "center_lon": 165.75,
     "timestamp": "202607300000",
     "data_source": "auto",
-    "storm": "DOLPHIN",
     "date": "20260730",
     "hour": "00",
+    "mode": "⚪ Neutral/Transitional",
     "status": "Neutral",
     "emoji": "⚪"
   },
@@ -275,6 +275,6 @@
     "nt_vs_jtwc": "NT≥280 km/h → JTWC max=269 km/h",
     "movement": "305° at 9 kts",
     "advisory_count": 6,
-    "dhcurl": "-3.3500e-05 s⁻¹ (Neutral)"
+    "dhcurl": "-3.3500e-05 s⁻¹ (⚪ Neutral/Transitional)"
   }
 }

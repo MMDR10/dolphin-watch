@@ -1,17 +1,17 @@
 {
-  "dh_curl": -4.834394530917052e-06,
-  "H_core": 8.532715582987294e-06,
-  "H_shell": 3.6983210520702414e-06,
-  "core_n": 1301,
-  "shell_n": 3929,
-  "center_lat": 15.75,
-  "center_lon": 166.0,
+  "dh_curl": -3.35e-05,
+  "H_core": 4.085e-05,
+  "H_shell": 7.35e-06,
+  "core_n": 1307,
+  "shell_n": 3946,
+  "center_lat": 16.25,
+  "center_lon": 165.75,
   "core_deg": 5.0,
   "shell_deg": 10.0,
   "mode": "Neutral/Transition",
-  "timestamp": "202607241800",
-  "data_source": "ERA5_CDS",
+  "timestamp": "202607300000",
+  "data_source": "GFS_0.25",
   "storm": "DOLPHIN",
-  "date": "20260724",
-  "hour": "18"
+  "date": "20260730",
+  "hour": "00"
 }

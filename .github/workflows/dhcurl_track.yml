@@ -66,9 +66,12 @@ jobs:
           "
 
       - name: Commit dH_curl result
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "Dolphin-Watch Bot"
           git config user.email "bot@dolphin-watch.local"
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/MMDR10/dolphin-watch.git
           git add dhcurl_result.json dhcurl_history.json
           git diff --staged --quiet || (
             git commit -m "🐬 dH_curl: auto-track from CDS ERA5" &&

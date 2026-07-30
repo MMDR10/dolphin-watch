@@ -71,6 +71,24 @@
       "peak_forecast_kts": 155,
       "peak_forecast_time": "300000",
       "nt_status": "✅ NT verified"
+    },
+    {
+      "timestamp": "2026-07-30 06:46 UTC",
+      "warning_nr": 13,
+      "position": {
+        "lat": 16.4,
+        "lon": 165.7
+      },
+      "max_wind_kts": 140,
+      "category": "Super Typhoon (Cat 5)",
+      "movement": {
+        "direction": 300,
+        "speed_kts": 11
+      },
+      "min_pressure_mb": 921,
+      "peak_forecast_kts": 145,
+      "peak_forecast_time": "301200",
+      "nt_status": "🟡 NT partially verified"
     }
   ],
   "storm_name": "DOLPHIN",

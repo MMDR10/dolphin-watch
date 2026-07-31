@@ -1,22 +1,17 @@
 {
-  "dh_curl": -3.349970620547538e-05,
-  "H_core": 4.08535088354256e-05,
-  "H_shell": 7.3538026299502235e-06,
-  "core_n": 1307,
-  "shell_n": 3946,
-  "center_lat": 16.25,
-  "center_lon": 165.75,
+  "dh_curl": 4.219324182486162e-06,
+  "H_core": 4.331378477218095e-06,
+  "H_shell": 8.550702659704257e-06,
+  "core_n": 1309,
+  "shell_n": 3948,
+  "center_lat": 16.5,
+  "center_lon": 166.5,
   "core_deg": 5.0,
   "shell_deg": 10.0,
-  "mode": "\u26aa Neutral/Transitional",
-  "timestamp": "202607300000",
-  "data_source": "auto",
-  "grid": {
-    "Ni": 121,
-    "Nj": 121,
-    "lat1": 2.0,
-    "lat2": 32.0,
-    "lon1": 148.0,
-    "lon2": 178.0
-  }
+  "mode": "Neutral/Transition",
+  "timestamp": "202607260600",
+  "data_source": "ERA5_CDS",
+  "storm": "DOLPHIN",
+  "date": "20260726",
+  "hour": "06"
 }

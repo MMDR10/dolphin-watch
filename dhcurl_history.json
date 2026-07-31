@@ -28,6 +28,20 @@
       "mode": "Neutral/Transition",
       "core_deg": 5.0,
       "shell_deg": 10.0
+    },
+    {
+      "dh_curl": 4.219324182486162e-06,
+      "H_core": 4.331378477218095e-06,
+      "H_shell": 8.550702659704257e-06,
+      "center_lat": 16.5,
+      "center_lon": 166.5,
+      "core_n": 1309,
+      "shell_n": 3948,
+      "timestamp": "202607260600",
+      "storm": "DOLPHIN",
+      "mode": "Neutral/Transition",
+      "core_deg": 5.0,
+      "shell_deg": 10.0
     }
   ]
 }

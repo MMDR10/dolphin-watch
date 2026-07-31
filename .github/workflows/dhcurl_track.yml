@@ -70,20 +70,8 @@ jobs:
             LAT="${{ github.event.inputs.lat }}"
             LON="${{ github.event.inputs.lon }}"
           elif [ -f dhcurl_history.json ]; then
-            python - <<PYEOF
-import json
-h = json.load(open('dhcurl_history.json'))
-recs = h.get('records', [])
-if recs:
-    last = recs[-1]
-    print(f"LAT={last.get('center_lat', 16.5)}")
-    print(f"LON={last.get('center_lon', 165.5)}")
-else:
-    print("LAT=16.5")
-    print("LON=165.5")
-PYEOF
-            LAT=$LAT
-            LON=$LON
+            LAT=$(python3 -c "import json; h=json.load(open('dhcurl_history.json')); print(h['records'][-1]['center_lat'])" 2>/dev/null || echo 16.5)
+            LON=$(python3 -c "import json; h=json.load(open('dhcurl_history.json')); print(h['records'][-1]['center_lon'])" 2>/dev/null || echo 165.5)
           else
             LAT=16.5
             LON=165.5

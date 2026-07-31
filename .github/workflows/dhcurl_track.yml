@@ -131,7 +131,20 @@ jobs:
           git config user.email "bot@dolphin-watch.local"
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/MMDR10/dolphin-watch.git
           git add dhcurl_result.json dhcurl_history.json
-          git diff --staged --quiet || (
-            git commit -m "🐬 dH_curl: auto-track $(date -u '+%Y-%m-%d %H:%M UTC')" &&
-            git push
-          )
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "🐬 dH_curl: auto-track $(date -u '+%Y-%m-%d %H:%M UTC')"
+          # Retry push (多個 workflow 可能同時 push → non-fast-forward)
+          for i in 1 2 3 4 5; do
+            if git push; then
+              echo "✅ Pushed on attempt $i"
+              exit 0
+            fi
+            echo "⚠️ Push attempt $i failed, pulling + retrying..."
+            git pull --rebase origin main || true
+            sleep 5
+          done
+          echo "❌ Push failed after 5 attempts"
+          exit 1

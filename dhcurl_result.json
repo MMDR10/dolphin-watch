@@ -1,17 +1,15 @@
 {
-  "dh_curl": 4.219324182486162e-06,
-  "H_core": 4.331378477218095e-06,
-  "H_shell": 8.550702659704257e-06,
-  "core_n": 1309,
-  "shell_n": 3948,
-  "center_lat": 16.5,
-  "center_lon": 166.5,
+  "dh_curl": -3.990871255155071e-05,
+  "H_core": 4.505702236201614e-05,
+  "H_shell": 5.1483098104654346e-06,
+  "center_lat": 18.25,
+  "center_lon": 162.0,
+  "core_n": 1327,
+  "shell_n": 3988,
+  "timestamp": "202607310000",
+  "storm": "DOLPHIN",
+  "mode": "Neutral/Transition",
   "core_deg": 5.0,
   "shell_deg": 10.0,
-  "mode": "Neutral/Transition",
-  "timestamp": "202607260600",
-  "data_source": "ERA5_CDS",
-  "storm": "DOLPHIN",
-  "date": "20260726",
-  "hour": "06"
+  "data_source": "GFS"
 }

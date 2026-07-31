@@ -1,4 +1,4 @@
-name: 🐬 dH_curl Track (ERA5 CDS)
+name: 🐬 dH_curl Track (GFS v8 + ERA5 CDS)
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       date:
-        description: 'Date YYYYMMDD'
+        description: 'Date YYYYMMDD (GFS cycle)'
         required: false
         default: ''
       hour:
@@ -14,13 +14,13 @@ on:
         required: false
         default: ''
       lat:
-        description: 'Center latitude'
+        description: 'Center latitude hint'
         required: false
-        default: '14.5'
+        default: ''
       lon:
-        description: 'Center longitude'
+        description: 'Center longitude hint'
         required: false
-        default: '168.0'
+        default: ''
 
 jobs:
   dhcurl:
@@ -39,11 +39,79 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install dependencies
-        run: pip install cdsapi xarray netCDF4 numpy
+      - name: Install dependencies (GFS v8 engine + ERA5)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libeccodes0 libeccodes-dev
+          pip install numpy eccodes cfgrib xarray cdsapi netCDF4
 
-      - name: Run dH_curl computation
-        id: dhcurl
+      - name: Determine target cycle & center hint
+        id: target
+        run: |
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            DATE="${{ github.event.inputs.date }}"
+            HOUR="${{ github.event.inputs.hour }}"
+          else
+            # 自動揀最接近嘅 synoptic hour（同本地 cron 邏輯一致）
+            H=$(date -u +%H)
+            if [ "$H" -ge 21 ]; then CYCLE="18"
+            elif [ "$H" -ge 15 ]; then CYCLE="12"
+            elif [ "$H" -ge 9 ]; then CYCLE="06"
+            elif [ "$H" -ge 3 ]; then CYCLE="00"
+            else CYCLE="18"; fi
+            DATE=$(date -u +%Y%m%d)
+            if [ "$CYCLE" = "18" ] && [ "$H" -lt 3 ]; then
+              DATE=$(date -u -d '1 day ago' +%Y%m%d)
+            fi
+            HOUR="$CYCLE"
+          fi
+          # 中心 hint：優先 dispatch 輸入，其次 history 最新中心，最後 default
+          if [ -n "${{ github.event.inputs.lat }}" ]; then
+            LAT="${{ github.event.inputs.lat }}"
+            LON="${{ github.event.inputs.lon }}"
+          elif [ -f dhcurl_history.json ]; then
+            python - <<PYEOF
+import json
+h = json.load(open('dhcurl_history.json'))
+recs = h.get('records', [])
+if recs:
+    last = recs[-1]
+    print(f"LAT={last.get('center_lat', 16.5)}")
+    print(f"LON={last.get('center_lon', 165.5)}")
+else:
+    print("LAT=16.5")
+    print("LON=165.5")
+PYEOF
+            LAT=$LAT
+            LON=$LON
+          else
+            LAT=16.5
+            LON=165.5
+          fi
+          echo "TARGET_DATE=$DATE" >> "$GITHUB_OUTPUT"
+          echo "TARGET_HOUR=$HOUR" >> "$GITHUB_OUTPUT"
+          echo "TARGET_LAT=$LAT" >> "$GITHUB_OUTPUT"
+          echo "TARGET_LON=$LON" >> "$GITHUB_OUTPUT"
+
+      - name: Run GFS dH_curl (v8 physical helicity)
+        id: gfs
+        continue-on-error: true
+        env:
+          DATE: ${{ steps.target.outputs.TARGET_DATE }}
+          HOUR: ${{ steps.target.outputs.TARGET_HOUR }}
+          LAT: ${{ steps.target.outputs.TARGET_LAT }}
+          LON: ${{ steps.target.outputs.TARGET_LON }}
+        run: |
+          python dolphin_dhcurl_v8.py \
+              --date "$DATE" --hour "$HOUR" \
+              --lat "$LAT" --lon "$LON" \
+              --core 5.0 --shell 10.0 \
+              --output dhcurl_result.json \
+              --mode auto 2>&1
+          echo "GFS_OK=1" >> "$GITHUB_ENV"
+
+      - name: Run ERA5 dH_curl (CDS fallback, 5-day latency)
+        if: steps.gfs.outcome == 'failure'
         env:
           CDSAPI_KEY: ${{ secrets.CDSAPI_KEY }}
         run: |
@@ -54,6 +122,7 @@ jobs:
             EXTRA="--era5-latest"
           fi
           python cds_dhcurl.py $EXTRA --output dhcurl_result.json
+          echo "ERA5_OK=1" >> "$GITHUB_ENV"
 
       - name: Print result
         run: |
@@ -66,6 +135,7 @@ jobs:
           "
 
       - name: Commit dH_curl result
+        if: success() || steps.gfs.outcome == 'failure'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -74,6 +144,6 @@ jobs:
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/MMDR10/dolphin-watch.git
           git add dhcurl_result.json dhcurl_history.json
           git diff --staged --quiet || (
-            git commit -m "🐬 dH_curl: auto-track from CDS ERA5" &&
+            git commit -m "🐬 dH_curl: auto-track $(date -u '+%Y-%m-%d %H:%M UTC')" &&
             git push
           )

@@ -102,6 +102,21 @@
       "core_deg": 5.0,
       "shell_deg": 10.0,
       "data_source": "GFS"
+    },
+    {
+      "dh_curl": -4.5188724470790476e-05,
+      "H_core": 4.927754707750864e-05,
+      "H_shell": 4.088822606718168e-06,
+      "center_lat": 20.5,
+      "center_lon": 159.0,
+      "core_n": 1347,
+      "shell_n": 4036,
+      "timestamp": "202608010000",
+      "storm": "DOLPHIN",
+      "mode": "⚪ Neutral/Transitional",
+      "core_deg": 5.0,
+      "shell_deg": 10.0,
+      "data_source": "auto"
     }
   ]
 }

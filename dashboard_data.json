@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-01 06:48 UTC",
+  "generated": "2026-08-01 11:09 UTC",
   "source": "JTWC via cyclocane (WTPN31)",
   "_storm_active": true,
   "current": {
@@ -144,18 +144,18 @@
     ]
   },
   "dhcurl_tracking": {
-    "dh_curl": -4.430535727806273e-05,
-    "H_core": 4.918608465231955e-05,
-    "H_shell": 4.880727374256821e-06,
-    "core_n": 1339,
-    "shell_n": 4014,
-    "center_lat": 19.5,
-    "center_lon": 160.0,
-    "timestamp": "202607311200",
+    "dh_curl": -4.5188724470790476e-05,
+    "H_core": 4.927754707750864e-05,
+    "H_shell": 4.088822606718168e-06,
+    "core_n": 1347,
+    "shell_n": 4036,
+    "center_lat": 20.5,
+    "center_lon": 159.0,
+    "timestamp": "202608010000",
     "data_source": "auto",
     "storm": "DOLPHIN",
-    "date": "20260731",
-    "hour": "12",
+    "date": "20260801",
+    "hour": "00",
     "status": "Neutral",
     "emoji": "⚪"
   },
@@ -275,6 +275,6 @@
     "nt_vs_jtwc": "NT≥280 km/h → JTWC max=269 km/h",
     "movement": "305° at 9 kts",
     "advisory_count": 6,
-    "dhcurl": "-4.4305e-05 s⁻¹ (Neutral)"
+    "dhcurl": "-4.5189e-05 s⁻¹ (Neutral)"
   }
 }

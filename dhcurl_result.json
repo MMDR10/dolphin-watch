@@ -1,7 +1,7 @@
 {
-  "dh_curl": -5.2323006912047276e-05,
-  "H_core": 5.51579832972493e-05,
-  "H_shell": 2.834976385202026e-06,
+  "dh_curl": -5.489522709467565e-05,
+  "H_core": 5.8010460634250194e-05,
+  "H_shell": 3.1152335395745467e-06,
   "core_n": 1357,
   "shell_n": 4056,
   "center_lat": 21.25,
@@ -9,7 +9,7 @@
   "core_deg": 5.0,
   "shell_deg": 10.0,
   "mode": "\u26aa Neutral/Transitional",
-  "timestamp": "202608011200",
+  "timestamp": "202608020000",
   "data_source": "auto",
   "grid": {
     "Ni": 121,

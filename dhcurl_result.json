@@ -1,22 +1,22 @@
 {
-  "dh_curl": -2.0363812836876605e-05,
-  "H_core": 3.0238754334277473e-05,
-  "H_shell": 9.874941497400869e-06,
-  "core_n": 1313,
-  "shell_n": 3966,
-  "center_lat": 17.5,
-  "center_lon": 161.75,
+  "dh_curl": -2.8235934223630466e-05,
+  "H_core": 3.900709270965308e-05,
+  "H_shell": 1.0771158486022614e-05,
+  "core_n": 1317,
+  "shell_n": 3980,
+  "center_lat": 17.75,
+  "center_lon": 163.5,
   "core_deg": 5.0,
   "shell_deg": 10.0,
   "mode": "\u26aa Neutral/Transitional",
-  "timestamp": "202608040000",
+  "timestamp": "202608041200",
   "data_source": "auto",
   "grid": {
-    "Ni": 121,
+    "Ni": 120,
     "Nj": 121,
-    "lat1": 5.5,
-    "lat2": 35.5,
-    "lon1": 144.0,
-    "lon2": 174.0
+    "lat1": 2.5,
+    "lat2": 32.5,
+    "lon1": 147.0,
+    "lon2": 176.75
   }
 }

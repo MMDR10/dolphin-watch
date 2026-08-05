@@ -1,106 +1,106 @@
 {
-  "generated": "2026-08-05 07:28 UTC",
+  "generated": "2026-08-05 13:52 UTC",
   "source": "JTWC via cyclocane (WTPN31)",
   "_storm_active": true,
   "current": {
-    "warning_nr": 37,
+    "warning_nr": 38,
     "storm_name": "DOLPHIN",
     "storm_id": "12W",
-    "category": "Typhoon (Cat 3)",
+    "category": "Typhoon (Cat 2)",
     "position": {
-      "lat": 25.4,
-      "lon": 138.3
+      "lat": 25.6,
+      "lon": 137.2
     },
-    "max_wind_kts": 100,
-    "max_wind_kmh": 185,
-    "gust_kts": 125,
-    "movement_direction": 275,
+    "max_wind_kts": 95,
+    "max_wind_kmh": 176,
+    "gust_kts": 115,
+    "movement_direction": 285,
     "movement_speed_kts": 9,
-    "min_pressure_mb": 943,
+    "min_pressure_mb": null,
     "max_wave_height_ft": null,
-    "issued_time": "2026-08-05T00:00Z",
+    "issued_time": "2026-08-05T06:00Z",
     "next_warnings": []
   },
   "forecast": [
     {
       "hours": 12,
-      "valid_time": "051200",
+      "valid_time": "051800",
       "position": {
-        "lat": 25.6,
-        "lon": 136.0
+        "lat": 26.0,
+        "lon": 135.0
       },
       "wind_kts": 95,
       "gust_kts": 115
     },
     {
       "hours": 24,
-      "valid_time": "060000",
+      "valid_time": "060600",
       "position": {
-        "lat": 25.9,
-        "lon": 133.6
+        "lat": 26.2,
+        "lon": 132.6
       },
       "wind_kts": 95,
       "gust_kts": 115
     },
     {
       "hours": 36,
-      "valid_time": "061200",
+      "valid_time": "061800",
       "position": {
-        "lat": 26.1,
-        "lon": 131.3
+        "lat": 26.4,
+        "lon": 130.3
       },
       "wind_kts": 95,
       "gust_kts": 115
     },
     {
       "hours": 48,
-      "valid_time": "070000",
+      "valid_time": "070600",
       "position": {
-        "lat": 26.3,
-        "lon": 129.1
+        "lat": 26.7,
+        "lon": 128.2
       },
       "wind_kts": 95,
       "gust_kts": 115
     },
     {
       "hours": 60,
-      "valid_time": "071200",
+      "valid_time": "071800",
       "position": {
-        "lat": 26.6,
-        "lon": 127.2
+        "lat": 26.9,
+        "lon": 126.7
       },
-      "wind_kts": 95,
-      "gust_kts": 115
+      "wind_kts": 90,
+      "gust_kts": 110
     },
     {
       "hours": 72,
-      "valid_time": "080000",
+      "valid_time": "080600",
       "position": {
-        "lat": 26.8,
-        "lon": 125.9
+        "lat": 27.1,
+        "lon": 125.1
       },
       "wind_kts": 90,
       "gust_kts": 110
     },
     {
       "hours": 96,
-      "valid_time": "090000",
+      "valid_time": "090600",
       "position": {
-        "lat": 27.1,
-        "lon": 124.1
+        "lat": 27.6,
+        "lon": 122.8
       },
-      "wind_kts": 85,
-      "gust_kts": 105
+      "wind_kts": 80,
+      "gust_kts": 100
     },
     {
       "hours": 120,
-      "valid_time": "100000",
+      "valid_time": "100600",
       "position": {
-        "lat": 27.9,
-        "lon": 122.2
+        "lat": 28.8,
+        "lon": 120.5
       },
-      "wind_kts": 75,
-      "gust_kts": 90
+      "wind_kts": 55,
+      "gust_kts": 70
     }
   ],
   "peak_forecast": {
@@ -132,9 +132,9 @@
       },
       "0lag_ri": {
         "nt_status": "0-Lag RI Active",
-        "current_kts": 100,
-        "current_kmh": 185,
-        "category": "Typhoon (Cat 3)",
+        "current_kts": 95,
+        "current_kmh": 176,
+        "category": "Typhoon (Cat 2)",
         "status": "✅ Confirmed"
       }
     },
@@ -144,18 +144,18 @@
     ]
   },
   "dhcurl_tracking": {
-    "dh_curl": -2.8235934223630466e-05,
-    "H_core": 3.900709270965308e-05,
-    "H_shell": 1.0771158486022614e-05,
-    "core_n": 1317,
-    "shell_n": 3980,
-    "center_lat": 17.75,
-    "center_lon": 163.5,
-    "timestamp": "202608041200",
+    "dh_curl": -3.1893076993583236e-05,
+    "H_core": 4.3498694139998406e-05,
+    "H_shell": 1.160561714641517e-05,
+    "core_n": 1325,
+    "shell_n": 3982,
+    "center_lat": 18.0,
+    "center_lon": 164.75,
+    "timestamp": "202608050000",
     "data_source": "auto",
     "storm": "DOLPHIN",
-    "date": "20260804",
-    "hour": "12",
+    "date": "20260805",
+    "hour": "00",
     "status": "Neutral",
     "emoji": "⚪"
   },
@@ -285,14 +285,32 @@
       "peak_forecast_kts": 95,
       "peak_forecast_time": "051200",
       "nt_status": "🟡 NT partially verified"
+    },
+    {
+      "timestamp": "2026-08-05 13:52 UTC",
+      "warning_nr": 38,
+      "position": {
+        "lat": 25.6,
+        "lon": 137.2
+      },
+      "max_wind_kts": 95,
+      "category": "Typhoon (Cat 2)",
+      "movement": {
+        "direction": 285,
+        "speed_kts": 9
+      },
+      "min_pressure_mb": null,
+      "peak_forecast_kts": 95,
+      "peak_forecast_time": "051800",
+      "nt_status": "🟡 NT partially verified"
     }
   ],
   "summary": {
-    "current_speed": "100 kts (185 km/h)",
+    "current_speed": "95 kts (176 km/h)",
     "peak_predicted": "95 kts (176 km/h) — Typhoon (Cat 2)",
     "nt_vs_jtwc": "NT≥280 km/h → JTWC max=176 km/h",
-    "movement": "275° at 9 kts",
-    "advisory_count": 7,
-    "dhcurl": "-2.8236e-05 s⁻¹ (Neutral)"
+    "movement": "285° at 9 kts",
+    "advisory_count": 8,
+    "dhcurl": "-3.1893e-05 s⁻¹ (Neutral)"
   }
 }

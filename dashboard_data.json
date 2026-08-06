@@ -1,112 +1,112 @@
 {
-  "generated": "2026-08-05 16:14 UTC",
+  "generated": "2026-08-06 07:28 UTC",
   "source": "JTWC via cyclocane (WTPN31)",
   "_storm_active": true,
   "current": {
-    "warning_nr": 38,
+    "warning_nr": 41,
     "storm_name": "DOLPHIN",
     "storm_id": "12W",
-    "category": "Typhoon (Cat 2)",
+    "category": "Typhoon (Cat 1)",
     "position": {
-      "lat": 25.6,
-      "lon": 137.2
+      "lat": 26.2,
+      "lon": 133.5
     },
-    "max_wind_kts": 95,
-    "max_wind_kmh": 176,
-    "gust_kts": 115,
-    "movement_direction": 285,
-    "movement_speed_kts": 9,
-    "min_pressure_mb": null,
+    "max_wind_kts": 80,
+    "max_wind_kmh": 148,
+    "gust_kts": 100,
+    "movement_direction": 265,
+    "movement_speed_kts": 13,
+    "min_pressure_mb": 956,
     "max_wave_height_ft": null,
-    "issued_time": "2026-08-05T06:00Z",
+    "issued_time": "2026-08-06T00:00Z",
     "next_warnings": []
   },
   "forecast": [
     {
       "hours": 12,
-      "valid_time": "051800",
+      "valid_time": "061200",
       "position": {
-        "lat": 26.0,
-        "lon": 135.0
-      },
-      "wind_kts": 95,
-      "gust_kts": 115
-    },
-    {
-      "hours": 24,
-      "valid_time": "060600",
-      "position": {
-        "lat": 26.2,
-        "lon": 132.6
-      },
-      "wind_kts": 95,
-      "gust_kts": 115
-    },
-    {
-      "hours": 36,
-      "valid_time": "061800",
-      "position": {
-        "lat": 26.4,
-        "lon": 130.3
-      },
-      "wind_kts": 95,
-      "gust_kts": 115
-    },
-    {
-      "hours": 48,
-      "valid_time": "070600",
-      "position": {
-        "lat": 26.7,
-        "lon": 128.2
-      },
-      "wind_kts": 95,
-      "gust_kts": 115
-    },
-    {
-      "hours": 60,
-      "valid_time": "071800",
-      "position": {
-        "lat": 26.9,
-        "lon": 126.7
-      },
-      "wind_kts": 90,
-      "gust_kts": 110
-    },
-    {
-      "hours": 72,
-      "valid_time": "080600",
-      "position": {
-        "lat": 27.1,
-        "lon": 125.1
-      },
-      "wind_kts": 90,
-      "gust_kts": 110
-    },
-    {
-      "hours": 96,
-      "valid_time": "090600",
-      "position": {
-        "lat": 27.6,
-        "lon": 122.8
+        "lat": 26.5,
+        "lon": 131.1
       },
       "wind_kts": 80,
       "gust_kts": 100
     },
     {
-      "hours": 120,
-      "valid_time": "100600",
+      "hours": 24,
+      "valid_time": "070000",
       "position": {
-        "lat": 28.8,
-        "lon": 120.5
+        "lat": 26.9,
+        "lon": 128.8
+      },
+      "wind_kts": 80,
+      "gust_kts": 100
+    },
+    {
+      "hours": 36,
+      "valid_time": "071200",
+      "position": {
+        "lat": 27.0,
+        "lon": 126.9
+      },
+      "wind_kts": 80,
+      "gust_kts": 100
+    },
+    {
+      "hours": 48,
+      "valid_time": "080000",
+      "position": {
+        "lat": 27.0,
+        "lon": 125.3
+      },
+      "wind_kts": 80,
+      "gust_kts": 100
+    },
+    {
+      "hours": 60,
+      "valid_time": "081200",
+      "position": {
+        "lat": 27.0,
+        "lon": 123.9
+      },
+      "wind_kts": 80,
+      "gust_kts": 100
+    },
+    {
+      "hours": 72,
+      "valid_time": "090000",
+      "position": {
+        "lat": 27.2,
+        "lon": 122.5
+      },
+      "wind_kts": 75,
+      "gust_kts": 90
+    },
+    {
+      "hours": 96,
+      "valid_time": "100000",
+      "position": {
+        "lat": 28.0,
+        "lon": 120.0
       },
       "wind_kts": 55,
       "gust_kts": 70
+    },
+    {
+      "hours": 120,
+      "valid_time": "110000",
+      "position": {
+        "lat": 29.9,
+        "lon": 117.0
+      },
+      "wind_kts": 30,
+      "gust_kts": 40
     }
   ],
   "peak_forecast": {
-    "kts": 95,
-    "kmh": 176,
-    "category": "Typhoon (Cat 2)"
+    "kts": 80,
+    "kmh": 148,
+    "category": "Typhoon (Cat 1)"
   },
   "noise_topography": {
     "prediction": {
@@ -123,18 +123,18 @@
     "verification": {
       "peak_intensity": {
         "nt_predicted_kmh": 280,
-        "jtwc_forecast_kmh": 176,
-        "jtwc_forecast_kts": 95,
-        "difference_kmh": -104,
-        "difference_pct": 37.1,
+        "jtwc_forecast_kmh": 148,
+        "jtwc_forecast_kts": 80,
+        "difference_kmh": -132,
+        "difference_pct": 47.1,
         "within_tolerance": false,
-        "remark": "NT≥280 vs JTWC=176 km/h (Δ=-104 km/h)"
+        "remark": "NT≥280 vs JTWC=148 km/h (Δ=-132 km/h)"
       },
       "0lag_ri": {
         "nt_status": "0-Lag RI Active",
-        "current_kts": 95,
-        "current_kmh": 176,
-        "category": "Typhoon (Cat 2)",
+        "current_kts": 80,
+        "current_kmh": 148,
+        "category": "Typhoon (Cat 1)",
         "status": "✅ Confirmed"
       }
     },
@@ -144,18 +144,18 @@
     ]
   },
   "dhcurl_tracking": {
-    "dh_curl": -3.1893076993583236e-05,
-    "H_core": 4.3498694139998406e-05,
-    "H_shell": 1.160561714641517e-05,
-    "core_n": 1325,
-    "shell_n": 3982,
-    "center_lat": 18.0,
-    "center_lon": 164.75,
-    "timestamp": "202608050000",
+    "dh_curl": -1.0755444236565381e-05,
+    "H_core": 2.6488698495086282e-05,
+    "H_shell": 1.57332542585209e-05,
+    "core_n": 1301,
+    "shell_n": 3942,
+    "center_lat": 15.75,
+    "center_lon": 162.25,
+    "timestamp": "202608051200",
     "data_source": "auto",
     "storm": "DOLPHIN",
     "date": "20260805",
-    "hour": "00",
+    "hour": "12",
     "status": "Neutral",
     "emoji": "⚪"
   },
@@ -303,14 +303,32 @@
       "peak_forecast_kts": 95,
       "peak_forecast_time": "051800",
       "nt_status": "🟡 NT partially verified"
+    },
+    {
+      "timestamp": "2026-08-06 07:28 UTC",
+      "warning_nr": 41,
+      "position": {
+        "lat": 26.2,
+        "lon": 133.5
+      },
+      "max_wind_kts": 80,
+      "category": "Typhoon (Cat 1)",
+      "movement": {
+        "direction": 265,
+        "speed_kts": 13
+      },
+      "min_pressure_mb": 956,
+      "peak_forecast_kts": 80,
+      "peak_forecast_time": "061200",
+      "nt_status": "🟡 NT partially verified"
     }
   ],
   "summary": {
-    "current_speed": "95 kts (176 km/h)",
-    "peak_predicted": "95 kts (176 km/h) — Typhoon (Cat 2)",
-    "nt_vs_jtwc": "NT≥280 km/h → JTWC max=176 km/h",
-    "movement": "285° at 9 kts",
-    "advisory_count": 8,
-    "dhcurl": "-3.1893e-05 s⁻¹ (Neutral)"
+    "current_speed": "80 kts (148 km/h)",
+    "peak_predicted": "80 kts (148 km/h) — Typhoon (Cat 1)",
+    "nt_vs_jtwc": "NT≥280 km/h → JTWC max=148 km/h",
+    "movement": "265° at 13 kts",
+    "advisory_count": 9,
+    "dhcurl": "-1.0755e-05 s⁻¹ (Neutral)"
   }
 }

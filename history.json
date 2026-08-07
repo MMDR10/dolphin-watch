@@ -215,6 +215,24 @@
       "peak_forecast_kts": 90,
       "peak_forecast_time": "071800",
       "nt_status": "🟡 NT partially verified"
+    },
+    {
+      "timestamp": "2026-08-07 18:07 UTC",
+      "warning_nr": 47,
+      "position": {
+        "lat": 27.2,
+        "lon": 127.2
+      },
+      "max_wind_kts": 90,
+      "category": "Typhoon (Cat 2)",
+      "movement": {
+        "direction": 300,
+        "speed_kts": 9
+      },
+      "min_pressure_mb": 951,
+      "peak_forecast_kts": 90,
+      "peak_forecast_time": "080000",
+      "nt_status": "🟡 NT partially verified"
     }
   ],
   "storm_name": "DOLPHIN",

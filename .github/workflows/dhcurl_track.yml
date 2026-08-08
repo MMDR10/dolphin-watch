@@ -31,7 +31,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          persist-credentials: true
           fetch-depth: 0
 
       - name: Setup Python
@@ -52,7 +51,6 @@ jobs:
             DATE="${{ github.event.inputs.date }}"
             HOUR="${{ github.event.inputs.hour }}"
           else
-            # 自動揀最接近嘅 synoptic hour（同本地 cron 邏輯一致）
             H=$(date -u +%H)
             if [ "$H" -ge 21 ]; then CYCLE="18"
             elif [ "$H" -ge 15 ]; then CYCLE="12"
@@ -65,7 +63,6 @@ jobs:
             fi
             HOUR="$CYCLE"
           fi
-          # 中心 hint：優先 dispatch 輸入，其次 history 最新中心，最後 default
           if [ -n "${{ github.event.inputs.lat }}" ]; then
             LAT="${{ github.event.inputs.lat }}"
             LON="${{ github.event.inputs.lon }}"
@@ -136,7 +133,6 @@ jobs:
             exit 0
           fi
           git commit -m "🐬 dH_curl: auto-track $(date -u '+%Y-%m-%d %H:%M UTC')"
-          # Retry push (多個 workflow 可能同時 push → non-fast-forward)
           for i in 1 2 3 4 5; do
             if git push; then
               echo "✅ Pushed on attempt $i"
@@ -144,7 +140,7 @@ jobs:
             fi
             echo "⚠️ Push attempt $i failed, pulling + retrying..."
             git pull --rebase origin main || true
-            sleep 5
+            sleep $((i * 3))
           done
           echo "❌ Push failed after 5 attempts"
           exit 1

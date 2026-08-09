@@ -1,0 +1,22 @@
+{
+  "dh_curl": 1.2467788565118099e-05,
+  "H_core": 4.402441390993772e-06,
+  "H_shell": 1.687022995611187e-05,
+  "core_n": 1325,
+  "shell_n": 2064,
+  "center_lat": 18.0,
+  "center_lon": 135.0,
+  "core_deg": 5.0,
+  "shell_deg": 8.0,
+  "mode": "\u26aa Neutral/Transitional",
+  "timestamp": "202608060000",
+  "data_source": "auto",
+  "grid": {
+    "Ni": 321,
+    "Nj": 321,
+    "lat1": -22.0,
+    "lat2": 58.0,
+    "lon1": 95.0,
+    "lon2": 175.0
+  }
+}

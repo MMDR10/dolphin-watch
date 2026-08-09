@@ -1,0 +1,50 @@
+[
+  {
+    "timestamp": "2026080500",
+    "center_lat": 20.0,
+    "center_lon": 140.0,
+    "dh_curl": 2.114e-05,
+    "data_source": "GFS_corrected",
+    "storm": "DOLPHIN"
+  },
+  {
+    "timestamp": "2026080512",
+    "center_lat": 19.0,
+    "center_lon": 138.0,
+    "dh_curl": 3.436e-05,
+    "data_source": "GFS_corrected",
+    "storm": "DOLPHIN"
+  },
+  {
+    "timestamp": "2026080600",
+    "center_lat": 18.0,
+    "center_lon": 135.0,
+    "dh_curl": 1.247e-05,
+    "data_source": "GFS_corrected",
+    "storm": "DOLPHIN"
+  },
+  {
+    "timestamp": "2026080700",
+    "center_lat": 27.0,
+    "center_lon": 128.0,
+    "dh_curl": -7.568e-05,
+    "data_source": "GFS_corrected",
+    "storm": "DOLPHIN"
+  },
+  {
+    "timestamp": "2026080800",
+    "center_lat": 27.0,
+    "center_lon": 127.0,
+    "dh_curl": -6.743e-05,
+    "data_source": "GFS_corrected",
+    "storm": "DOLPHIN"
+  },
+  {
+    "timestamp": "2026080900",
+    "center_lat": 27.0,
+    "center_lon": 128.0,
+    "dh_curl": -2.615e-05,
+    "data_source": "GFS_corrected",
+    "storm": "DOLPHIN"
+  }
+]

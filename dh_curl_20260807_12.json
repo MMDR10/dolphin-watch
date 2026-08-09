@@ -1,22 +1,22 @@
 {
-  "dh_curl": -3.4626979186214157e-06,
-  "H_core": 2.4927358026616275e-06,
-  "H_shell": -9.699621159597882e-07,
+  "dh_curl": -5.237048071649042e-06,
+  "H_core": 2.6794507448357763e-06,
+  "H_shell": -2.5575973268132657e-06,
   "core_n": 22839,
   "shell_n": 7448,
   "center_lat": 27.0,
-  "center_lon": 128.0,
+  "center_lon": 127.0,
   "core_deg": 20.0,
   "shell_deg": 23.0,
   "mode": "\u26aa Neutral/Transitional",
-  "timestamp": "202608070000",
+  "timestamp": "202608071200",
   "data_source": "auto",
   "grid": {
     "Ni": 321,
     "Nj": 321,
     "lat1": -13.0,
     "lat2": 67.0,
-    "lon1": 88.0,
-    "lon2": 168.0
+    "lon1": 87.0,
+    "lon2": 167.0
   }
 }

@@ -267,6 +267,21 @@
       "timestamp": "202608060000",
       "data_source": "auto",
       "storm": "DOLPHIN"
+    },
+    {
+      "dh_curl": -5.94e-06,
+      "H_core": 8.28e-06,
+      "H_shell": 2.35e-06,
+      "core_n": 997,
+      "shell_n": 1274,
+      "center_lat": 28.0,
+      "center_lon": 171.25,
+      "core_deg": 5.0,
+      "shell_deg": 8.0,
+      "mode": "Neutral/Transitional",
+      "timestamp": "202608090000",
+      "data_source": "auto",
+      "storm": "DOLPHIN"
     }
   ]
 }

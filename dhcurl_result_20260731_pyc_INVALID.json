@@ -1,0 +1,20 @@
+{
+  "dh_curl": 0.0,
+  "H_core": 0.0,
+  "H_shell": 0.0,
+  "core_n": 0,
+  "shell_n": 0,
+  "center_lat": 18.75,
+  "center_lon": 161.0,
+  "core_deg": 5.0,
+  "shell_deg": 8.0,
+  "mode": "Neutral/Transition",
+  "timestamp": "2026073106",
+  "data_source": "GFS_0p25_filter + pyc engine",
+  "storm": "DOLPHIN",
+  "date": "20260731",
+  "hour": "06",
+  "wind_kts": 140,
+  "engine": "dolphin_dhcurl_test.pyc (normalized co-occurrence helicity)",
+  "note": "Same engine family as 7/29-7/30 measurement; v8 physical helicity unavailable"
+}
